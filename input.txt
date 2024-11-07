@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    FILE *fp = fopen("test.txt", "r");
+    if (fp == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    char line[100];
+    while (fgets(line, 100, fp) != NULL) {
+        // Pass the line to your scanner for processing
+        // ...
+        // Check the scanner's output (tokens, abstract syntax tree, etc.)
+        // Compare the output with expected results
+        // ...
+        /* multi line 
+        comment 
+        to Check
+        the functionality
+        */
+    }
+
+    fclose(fp);
+    return 0;
+}
