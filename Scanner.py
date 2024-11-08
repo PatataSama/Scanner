@@ -24,19 +24,19 @@ c_operators = [
     '&&', '||', '!', # Logical Operators
     '&', '|', '^', '~', '<<', '>>', # Bitwise Operators
     '=', '+=', '-=', '*=', '/=', '%=', '&=', '|=', '^=', '<<=', '>>=', # Assignment Operators
-    'sizeof', '&', '*' # Other Operators
+    'sizeof', '*' # Other Operators
 ]
 
 # List of special characters used in C programming
 special_characters = [
-    '!', '#', '$', '%', '&', "'", '(', ')', '+', 
-    ',', '-', '.', '/', ':', ';', '?', 
-    '@', '[', '\\', ']', '^', '_', '{', '|', '}', '~', 
+    '#', '$', "'", '(', ')', 
+    ',', '.', ':', ';', '?', 
+    '@', '[', '\\', ']', '_', '{', '}', 
     '\"', '`'
 ]
 
 identifier_pattern = r'[a-zA-Z_][a-zA-Z0-9_]*'
-numeric_constants_pattern = r'\d+(\.\d+)?'
+numeric_constants_pattern = r'\d+(\.\d+)? | [-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?'
 non_numeric_constants_pattern = r'\w+(\.\w+)+(\.\w+)+'
 comment_pattern = r'(//.*)'
 multi_comment_pattern = r'(/\*.*?\*/)'
@@ -64,7 +64,6 @@ if comments:
 string_pattern = re.compile(string_pattern, re.DOTALL)
 match_strings = string_pattern.findall(cleaned_code)
 if match_strings:
-    print("Multi-line comments found:")
     for string in match_strings:
         print(f"{string} is a string in c programming language")
     cleaned_code = string_pattern.sub('', cleaned_code)
@@ -72,7 +71,7 @@ if match_strings:
 
 for word in cleaned_code.split():
     
-    if word.lower() in c_keywords:
+    if word.lower() in c_keywords or word == "NULL":
         print(f"{word} is a keyword in C programming language")
     
     match_non_numeric = re.search(non_numeric_constants_pattern, word)
